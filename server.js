@@ -102,11 +102,14 @@ function printLastError() {
   var err = serializerr(lastError)
   mainWindow.webContents.executeJavaScript([
     "(function() {",
-    "var errObj = " + JSON.stringify(err),
-    "var err = new Error()",
-    "mixin(err, errObj)",
-    "try {throw err} catch(e) {console.error(e)}",
-    "function mixin(a, b) { for (var key in b) a[key] = b[key] }",
+      // remove existing messages
+      "console.clear()",
+      // simulate server-side Error object
+      "var errObj = " + JSON.stringify(err),
+      "var err = new Error()",
+      "mixin(err, errObj)",
+      "try {throw err} catch(e) {console.error(e)}",
+      "function mixin(a, b) { for (var key in b) a[key] = b[key] }",
     "})()"
   ].join('\n'))
 }
