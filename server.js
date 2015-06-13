@@ -105,7 +105,7 @@ function printLastError() {
     "var errObj = " + JSON.stringify(err),
     "var err = new Error()",
     "mixin(err, errObj)",
-    "throw err",
+    "try {throw err} catch(e) {console.error(e)}",
     "function mixin(a, b) { for (var key in b) a[key] = b[key] }",
     "})()"
   ].join('\n'))
